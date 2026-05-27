@@ -19,24 +19,19 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   return (
     <Reveal delay={index * 60}>
       <div
-        className="relative p-10 border-r border-b overflow-hidden transition-colors duration-200"
-        style={{
-          borderColor: "var(--border)",
-          background: hovered ? "var(--muted)" : "transparent",
-        }}
+        className="relative p-6 md:p-8 overflow-hidden transition-colors duration-200 h-full"
+        style={{ background: hovered ? "var(--muted)" : "transparent" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}>
-        {/* accent top bar */}
         <span className="absolute top-0 left-0 h-0.5 transition-all duration-300"
-          style={{
-            background: "var(--accent)",
-            width: hovered ? "100%" : "0%",
-          }} />
-        <p className="font-mono text-[0.7rem] tracking-[0.15em] mb-6"
-          style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
+          style={{ background: "var(--accent)", width: hovered ? "100%" : "0%" }} />
+        <p className="text-[0.65rem] tracking-[0.15em] mb-5 uppercase"
+          style={{ color: "var(--accent)", fontFamily: '"JetBrains Mono", monospace' }}>
           {service.num}
         </p>
-        <h3 className="text-xl font-bold tracking-[-0.03em] mb-3">{service.name}</h3>
+        <h3 className="font-bold tracking-[-0.02em] mb-3" style={{ fontSize: "clamp(1rem,1.5vw,1.2rem)" }}>
+          {service.name}
+        </h3>
         <p className="text-sm leading-relaxed" style={{ color: "var(--muted-fg)" }}>
           {service.desc}
         </p>
@@ -47,34 +42,36 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 
 export default function Services() {
   return (
-    <section id="servicos" className="py-28 md:py-32 border-b" style={{ borderColor: "var(--border)" }}>
+    <section id="servicos" className="py-20 md:py-28 lg:py-32 border-b" style={{ borderColor: "var(--border)" }}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
 
-        <div className="flex flex-wrap justify-between items-end gap-8 mb-16">
+        <div className="flex flex-wrap justify-between items-end gap-6 mb-12 md:mb-16">
           <div>
             <Reveal><SectionLabel>O que entregamos</SectionLabel></Reveal>
             <Reveal delay={80}>
               <h2 className="font-black leading-none tracking-[-0.05em]"
-                style={{ fontSize: "clamp(2.5rem,5vw,5rem)" }}>
+                style={{ fontSize: "clamp(2rem,5vw,4.5rem)" }}>
                 Serviços
               </h2>
             </Reveal>
           </div>
           <Reveal delay={160}>
             <Link href="#orcamento"
-              className="relative inline-flex items-center gap-2 text-xs font-semibold tracking-[0.12em] uppercase py-3 group"
+              className="relative inline-flex items-center gap-2 font-semibold tracking-[0.1em] uppercase py-2 group text-xs"
               style={{ color: "var(--accent)" }}>
-              Ver planos <ArrowRight size={16} strokeWidth={1.5} />
-              <span className="absolute bottom-1 left-0 w-full h-0.5 scale-x-100 group-hover:scale-x-110 transition-transform duration-150 origin-left"
+              Ver planos <ArrowRight size={15} strokeWidth={1.5} />
+              <span className="absolute bottom-0 left-0 w-full h-0.5 scale-x-100 group-hover:scale-x-110 transition-transform duration-150 origin-left"
                 style={{ background: "var(--accent)" }} />
             </Link>
           </Reveal>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 border"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border"
           style={{ borderColor: "var(--border)" }}>
           {services.map((s, i) => (
-            <ServiceCard key={s.num} service={s} index={i} />
+            <div key={s.num} className="border-r border-b" style={{ borderColor: "var(--border)" }}>
+              <ServiceCard service={s} index={i} />
+            </div>
           ))}
         </div>
 

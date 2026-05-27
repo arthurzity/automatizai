@@ -13,7 +13,7 @@
   --input:     #1A1A1A;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -22,8 +22,10 @@ body {
   font-family: "Inter Tight", "Inter", system-ui, sans-serif;
   letter-spacing: -0.01em;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Grain overlay */
 body::before {
   content: "";
   position: fixed;
@@ -38,6 +40,11 @@ body::before {
 
 ::selection { background: var(--accent); color: var(--accent-fg); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Dividers using CSS instead of Tailwind divide (more reliable) */
+.divide-x > * + * { border-left: 1px solid var(--border); }
+.divide-y > * { border-bottom: 1px solid var(--border); }
+.divide-y > *:last-child { border-bottom: none; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }

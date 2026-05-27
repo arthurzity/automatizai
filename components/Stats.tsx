@@ -1,31 +1,40 @@
 import Reveal from "./Reveal";
 
 const stats = [
-  { number: "72", suffix: "h", label: "Prazo de entrega" },
-  { number: "100", suffix: "%", label: "Responsivo mobile" },
-  { number: "SEO", suffix: "", label: "Incluso no pacote" },
-  { number: "BR", suffix: "+", label: "Atendemos todo Brasil" },
+  { num: "72", suf: "h",  label: "Prazo de entrega" },
+  { num: "100", suf: "%", label: "Responsivo mobile" },
+  { num: "SEO", suf: "",  label: "Incluso no pacote" },
+  { num: "BR", suf: "+",  label: "Todo o Brasil" },
 ];
 
 export default function Stats() {
   return (
-    <section className="border-b" style={{ borderColor: "var(--border)" }}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0"
-          style={{ "--tw-divide-opacity": 1, borderColor: "var(--border)" } as React.CSSProperties}>
+    <section style={{ borderBottom: "1px solid var(--border)" }}>
+      <div className="max-w-5xl mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
+        <div className="grid grid-cols-2 md:grid-cols-4" style={{ borderLeft: "1px solid var(--border)" }}>
           {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 80}>
-              <div className="p-6 md:p-8 lg:p-10"
-                style={{ borderColor: "var(--border)" }}>
-                <div className="font-black leading-none tracking-[-0.05em] mb-2"
-                  style={{ fontSize: "clamp(2rem,4vw,4rem)" }}>
-                  {s.number}
-                  <span style={{ color: "var(--accent)" }}>{s.suffix}</span>
-                </div>
-                <div className="text-[0.65rem] md:text-[0.7rem] tracking-[0.15em] uppercase"
-                  style={{ color: "var(--muted-fg)", fontFamily: '"JetBrains Mono", monospace' }}>
+            <Reveal key={s.label} delay={i * 70}>
+              <div
+                className="flex flex-col gap-2"
+                style={{
+                  padding: "clamp(1.5rem,4vw,3rem) clamp(1rem,3vw,2.5rem)",
+                  borderRight: "1px solid var(--border)",
+                  borderBottom: "1px solid var(--border)",
+                }}
+              >
+                <span
+                  className="font-black leading-none tracking-[-0.05em]"
+                  style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+                >
+                  {s.num}
+                  <span style={{ color: "var(--accent)" }}>{s.suf}</span>
+                </span>
+                <span
+                  className="text-[0.65rem] tracking-[0.14em] uppercase"
+                  style={{ color: "var(--muted-fg)", fontFamily: '"JetBrains Mono", monospace' }}
+                >
                   {s.label}
-                </div>
+                </span>
               </div>
             </Reveal>
           ))}

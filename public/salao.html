@@ -109,12 +109,12 @@
     /* GALLERY */
     .gallery{padding:7rem 0;border-bottom:1px solid var(--border)}
     .gal-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.01em;text-align:center;margin-bottom:0}
-    .gal-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:auto auto;gap:3px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
-    @media(min-width:768px){.gal-grid{grid-template-columns:2fr 1fr 1fr}}
+    .gal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    @media(min-width:768px){.gal-grid{grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:1fr 1fr}}
     .gal-item{overflow:hidden;position:relative;background:var(--muted)}
     .gal-main{grid-column:span 1;grid-row:span 2}
     @media(min-width:768px){.gal-main{grid-row:span 2}}
-    .gal-item img{width:100%;height:100%;object-fit:cover;display:block;min-height:200px;transition:transform 500ms ease-out;filter:sepia(5%) contrast(1.04)}
+    .gal-item img{width:100%;height:100%;object-fit:cover;display:block;min-height:180px;transition:transform 500ms ease-out;filter:sepia(5%) contrast(1.04)}
     .gal-main img{min-height:400px}
     .gal-item:hover img{transform:scale(1.05)}
     .gal-over{position:absolute;inset:0;background:rgba(26,26,26,0);transition:background 300ms;display:flex;align-items:flex-end;padding:1.25rem}
@@ -286,8 +286,8 @@
     </div>
     <div class="gal-grid reveal">
       <div class="gal-item gal-main">
-        <img src="/salao/equipe.png" alt="Equipe Luxe Atelier" />
-        <div class="gal-over"><span class="gal-tag">Nossa Equipe</span></div>
+        <img src="/salao/corte-salao.png" alt="Atendimento premium" />
+        <div class="gal-over"><span class="gal-tag">Atendimento Premium</span></div>
       </div>
       <div class="gal-item">
         <img src="/salao/cabelo-loiro2.png" alt="Cabelo loiro ondulado" />
@@ -302,8 +302,8 @@
         <div class="gal-over"><span class="gal-tag">Tratamento Premium</span></div>
       </div>
       <div class="gal-item">
-        <img src="/salao/fundadora.png" alt="Cliente satisfeita" />
-        <div class="gal-over"><span class="gal-tag">Resultado Final</span></div>
+        <img src="/salao/equipe.png" alt="Equipe do salão" />
+        <div class="gal-over"><span class="gal-tag">Nossa Equipe</span></div>
       </div>
     </div>
   </div>

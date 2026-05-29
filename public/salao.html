@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxe Atelier — Cabelos & Estética</title>
+  <meta name="description" content="Salão de beleza premium em São Paulo. Cabelo, unhas, estética facial. Agende seu horário." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#FAFAF8;--fg:#1A1A1A;--muted:#F5F3F0;--muted-fg:#6B6B6B;
+      --accent:#B8860B;--accent2:#D4A84B;--border:#E8E4DF;--card:#FFFFFF;
+      --serif:"Playfair Display",Georgia,serif;
+      --sans:"Source Sans 3",system-ui,sans-serif;
+      --mono:"IBM Plex Mono",monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:1rem;line-height:1.75;letter-spacing:.01em;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+    ::selection{background:var(--accent);color:#fff}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .container{max-width:64rem;margin:0 auto;padding:0 1.5rem}
+    @media(min-width:768px){.container{padding:0 3rem}}
+
+    /* DEMO BANNER */
+    .demo-banner{background:var(--accent);color:#fff;text-align:center;padding:.5rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;position:sticky;top:0;z-index:200}
+    .demo-banner a{color:#fff;font-weight:600;text-decoration:underline}
+
+    /* NAV */
+    nav{position:sticky;top:32px;z-index:100;background:rgba(250,250,248,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .nav-logo{font-family:var(--serif);font-size:1.35rem;font-weight:500;letter-spacing:-.01em;color:var(--fg);text-decoration:none}
+    .nav-logo em{font-style:italic;color:var(--accent)}
+    .nav-links{display:none;gap:2.5rem;list-style:none}
+    @media(min-width:768px){.nav-links{display:flex}}
+    .nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-fg);text-decoration:none;transition:color 200ms}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-cta{font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);border:none;padding:.6rem 1.5rem;border-radius:4px;cursor:pointer;text-decoration:none;transition:background 200ms,transform 200ms;min-height:44px;display:inline-flex;align-items:center}
+    .nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+
+    /* LABEL */
+    .label{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    .label span{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+    .label::before,.label::after{content:"";flex:1;height:1px;background:var(--border)}
+
+    /* HERO */
+    .hero{padding:5rem 0 4rem;border-bottom:1px solid var(--border)}
+    .hero-top{text-align:center;margin-bottom:3.5rem}
+    .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s ease-out .1s forwards}
+    .hero-h1{font-family:var(--serif);font-size:clamp(2.6rem,6.5vw,5rem);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:1.5rem;max-width:18ch;margin-left:auto;margin-right:auto;opacity:0;animation:fadeUp .8s ease-out .2s forwards}
+    .hero-h1 em{font-style:italic;color:var(--accent)}
+    .hero-rule{width:60px;height:1px;background:var(--accent);margin:0 auto 1.75rem;opacity:0;animation:fadeUp .8s ease-out .3s forwards}
+    .hero-sub{font-size:1.05rem;color:var(--muted-fg);max-width:46ch;margin:0 auto 2.5rem;line-height:1.8;opacity:0;animation:fadeUp .8s ease-out .4s forwards}
+    .hero-btns{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;opacity:0;animation:fadeUp .8s ease-out .5s forwards}
+    .btn-primary{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);border:none;padding:.85rem 2.2rem;border-radius:4px;cursor:pointer;text-decoration:none;transition:background 200ms,transform 200ms,box-shadow 200ms;box-shadow:0 2px 8px rgba(184,134,11,.2);min-height:44px;display:inline-flex;align-items:center}
+    .btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,134,11,.3)}
+    .btn-outline{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);background:transparent;border:1px solid var(--fg);padding:.85rem 2.2rem;border-radius:4px;cursor:pointer;text-decoration:none;transition:all 200ms;min-height:44px;display:inline-flex;align-items:center}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent);background:rgba(184,134,11,.04)}
+
+    /* HERO PHOTO GRID */
+    .hero-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr;grid-template-rows:auto auto;gap:3px;opacity:0;animation:fadeUp .8s ease-out .6s forwards;max-width:900px;margin:0 auto}
+    .hg-main{grid-row:span 2;overflow:hidden;aspect-ratio:3/4}
+    .hg-sm{overflow:hidden;aspect-ratio:4/3}
+    .hero-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 500ms ease-out;filter:sepia(6%) contrast(1.04)}
+    .hero-grid img:hover{transform:scale(1.04)}
+    @media(max-width:600px){.hero-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.hg-main{grid-row:span 1;aspect-ratio:1/1}}
+
+    /* STATS */
+    .stats{border-bottom:1px solid var(--border)}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    @media(max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat{padding:2.5rem 1.5rem;text-align:center;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none}
+    @media(max-width:640px){.stat:nth-child(2n){border-right:none}.stat{border-bottom:1px solid var(--border)}}
+    .stat-n{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--accent);line-height:1;margin-bottom:.4rem}
+    .stat-l{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-fg)}
+
+    /* ABOUT */
+    .about{padding:7rem 0;border-bottom:1px solid var(--border)}
+    .about-grid{display:grid;gap:4rem}
+    @media(min-width:1024px){.about-grid{grid-template-columns:1.3fr .7fr;gap:5rem;align-items:center}}
+    .about-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.2;letter-spacing:-.01em;margin-bottom:1.25rem}
+    .about-h em{font-style:italic;color:var(--accent)}
+    .about-p{color:var(--muted-fg);line-height:1.85;margin-bottom:1.25rem;font-size:1.02rem}
+    .about-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--border)}
+    .about-img-wrap img{width:100%;height:100%;object-fit:cover;filter:sepia(6%)}
+    .about-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(250,250,248,.92);padding:1rem 1.25rem;border-top:1px solid var(--border)}
+    .about-caption p{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+    .about-caption strong{font-family:var(--serif);font-size:1.05rem;font-weight:500;color:var(--fg);display:block;margin-top:.2rem}
+
+    /* SERVICES */
+    .services{padding:7rem 0;border-bottom:1px solid var(--border);background:var(--muted)}
+    .svc-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.01em;text-align:center;margin-bottom:3.5rem}
+    .svc-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+    @media(min-width:640px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:1024px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+    .svc-card{background:var(--card);padding:2.25rem 2rem;transition:background 200ms;position:relative;overflow:hidden}
+    .svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 300ms ease-out}
+    .svc-card:hover{background:var(--muted)}
+    .svc-card:hover::before{transform:scaleX(1)}
+    .svc-icon{font-size:1.6rem;margin-bottom:1rem}
+    .svc-name{font-family:var(--serif);font-size:1.2rem;font-weight:500;margin-bottom:.65rem;letter-spacing:-.01em}
+    .svc-desc{font-size:.88rem;color:var(--muted-fg);line-height:1.7;margin-bottom:1.1rem}
+    .svc-price{font-family:var(--serif);font-size:1rem;color:var(--accent);font-style:italic}
+
+    /* GALLERY */
+    .gallery{padding:7rem 0;border-bottom:1px solid var(--border)}
+    .gal-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.01em;text-align:center;margin-bottom:0}
+    .gal-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:auto auto;gap:3px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    @media(min-width:768px){.gal-grid{grid-template-columns:2fr 1fr 1fr}}
+    .gal-item{overflow:hidden;position:relative;background:var(--muted)}
+    .gal-main{grid-column:span 1;grid-row:span 2}
+    @media(min-width:768px){.gal-main{grid-row:span 2}}
+    .gal-item img{width:100%;height:100%;object-fit:cover;display:block;min-height:200px;transition:transform 500ms ease-out;filter:sepia(5%) contrast(1.04)}
+    .gal-main img{min-height:400px}
+    .gal-item:hover img{transform:scale(1.05)}
+    .gal-over{position:absolute;inset:0;background:rgba(26,26,26,0);transition:background 300ms;display:flex;align-items:flex-end;padding:1.25rem}
+    .gal-item:hover .gal-over{background:rgba(26,26,26,.35)}
+    .gal-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;opacity:0;transition:opacity 300ms}
+    .gal-item:hover .gal-tag{opacity:1}
+
+    /* TESTIMONIALS */
+    .testimonials{padding:7rem 0;border-bottom:1px solid var(--border);background:var(--muted)}
+    .testi-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.01em;text-align:center;margin-bottom:0}
+    .testi-grid{display:grid;gap:1.5rem;margin-top:3rem}
+    @media(min-width:768px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+    .testi-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:2rem}
+    .testi-q{font-family:var(--serif);font-size:3.5rem;line-height:.6;color:var(--accent);opacity:.25;margin-bottom:.75rem}
+    .stars{color:var(--accent);font-size:.8rem;margin-bottom:.65rem}
+    .testi-text{font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.7;color:var(--fg);margin-bottom:1.25rem}
+    .testi-rule{width:2rem;height:1px;background:var(--accent);margin-bottom:.75rem}
+    .testi-author{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+
+    /* BOOKING */
+    .booking{padding:7rem 0;border-bottom:1px solid var(--border)}
+    .book-grid{display:grid;gap:4rem}
+    @media(min-width:1024px){.book-grid{grid-template-columns:1fr 1fr;gap:5rem;align-items:start}}
+    .book-h{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-.01em;line-height:1.2;margin-bottom:1rem}
+    .book-h em{font-style:italic;color:var(--accent)}
+    .book-sub{color:var(--muted-fg);line-height:1.8;margin-bottom:2rem}
+    .info-list{list-style:none;display:flex;flex-direction:column;gap:.9rem}
+    .info-item{display:flex;align-items:flex-start;gap:1rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
+    .info-icon{font-size:1rem;margin-top:2px}
+    .info-lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.15rem}
+    .info-val{font-size:.93rem;color:var(--fg)}
+    .form{display:flex;flex-direction:column;gap:.9rem}
+    .form label{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:.35rem}
+    .form input,.form select,.form textarea{width:100%;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--fg);font-family:var(--sans);font-size:.95rem;padding:.75rem 1rem;outline:none;transition:border-color 150ms,box-shadow 150ms;min-height:44px}
+    .form input:focus,.form select:focus,.form textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,134,11,.1)}
+    .form textarea{resize:vertical;min-height:90px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
+    /* FOOTER */
+    footer{padding:4rem 0 2rem;border-top:1px solid var(--border)}
+    .footer-top{display:grid;gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+    @media(min-width:768px){.footer-top{grid-template-columns:2fr 1fr 1fr}}
+    .footer-logo{font-family:var(--serif);font-size:1.4rem;font-weight:500;color:var(--fg);margin-bottom:.75rem;display:block;text-decoration:none}
+    .footer-logo em{font-style:italic;color:var(--accent)}
+    .footer-tag{font-size:.88rem;color:var(--muted-fg);line-height:1.7;max-width:28ch}
+    .footer-h{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+    .footer-links a{font-size:.88rem;color:var(--muted-fg);text-decoration:none;transition:color 200ms}
+    .footer-links a:hover{color:var(--accent)}
+    .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem}
+    .footer-copy{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted-fg)}
+    .footer-badge{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);border:1px solid var(--border);padding:.28rem .7rem;border-radius:2px}
+    .footer-badge a{color:var(--accent);text-decoration:none}
+
+    /* WPP */
+    .wpp{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform 150ms}
+    .wpp:hover{transform:scale(1.08)}
+    .wpp svg{width:26px;height:26px;fill:#fff}
+
+    /* REVEAL */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease-out,transform .7s ease-out}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+
+<div class="demo-banner">
+  Site demo criado pela <a href="https://automatizai.online">Automatizai</a> — Este poderia ser o site do seu salão
+</div>
+
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Luxe <em>Atelier</em></a>
+      <ul class="nav-links">
+        <li><a href="#sobre">O Salão</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#agendamento">Contato</a></li>
+      </ul>
+      <a href="#agendamento" class="nav-cta">Agendar</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <p class="eyebrow">Cabelos & Estética — São Paulo, SP</p>
+      <h1 class="hero-h1">Onde beleza encontra <em>elegância.</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Transformamos sua autoestima com técnicas exclusivas, produtos premium e atendimento verdadeiramente personalizado. Porque você merece se sentir extraordinária.</p>
+      <div class="hero-btns">
+        <a href="#agendamento" class="btn-primary">Agendar Horário</a>
+        <a href="#servicos" class="btn-outline">Ver Serviços</a>
+      </div>
+    </div>
+    <div class="hero-grid">
+      <div class="hg-main"><img src="/salao/equipe.png" alt="Equipe Luxe Atelier" /></div>
+      <div class="hg-sm"><img src="/salao/bob-unhas.png" alt="Corte e unhas" /></div>
+      <div class="hg-sm"><img src="/salao/tratamento.png" alt="Tratamento premium" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats reveal">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Anos de experiência</div></div>
+      <div class="stat"><div class="stat-n">4.9</div><div class="stat-l">Avaliação Google</div></div>
+      <div class="stat"><div class="stat-n">5k+</div><div class="stat-l">Clientes atendidas</div></div>
+      <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Retornam ao salão</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="label"><span>O Salão</span></div>
+        <h2 class="about-h">Um espaço criado para <em>realçar</em> a sua beleza única.</h2>
+        <p class="about-p">Fundado no coração de São Paulo, o Luxe Atelier nasceu da crença de que cada pessoa carrega uma beleza singular que merece ser celebrada. Nossa equipe de profissionais altamente qualificados une técnica, criatividade e cuidado em cada atendimento.</p>
+        <p class="about-p">Trabalhamos com as marcas mais renomadas do mercado — L'Oréal Professionnel, Wella, OPI — e estamos sempre atualizados com as tendências globais de beleza. Aqui, você não é apenas mais uma cliente. Você é nossa inspiração.</p>
+        <a href="#agendamento" class="btn-primary" style="margin-top:1rem">Conhecer o espaço</a>
+      </div>
+      <div class="reveal">
+        <div class="about-img-wrap">
+          <img src="/salao/fundadora.png" alt="Fundadora do Luxe Atelier" />
+          <div class="about-caption">
+            <p>Fundadora & Diretora Criativa</p>
+            <strong>Ana Beatriz Ferreira</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><span>Serviços</span></div>
+      <h2 class="svc-h">O que oferecemos</h2>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card"><div class="svc-icon">✂️</div><h3 class="svc-name">Corte & Styling</h3><p class="svc-desc">Cortes personalizados que valorizam seu rosto e estilo de vida. Do clássico ao contemporâneo.</p><div class="svc-price">A partir de R$ 80</div></div>
+      <div class="svc-card"><div class="svc-icon">🎨</div><h3 class="svc-name">Coloração & Mechas</h3><p class="svc-desc">Loiros, balayage, ombré e colorações vibrantes com produtos que respeitam seu cabelo.</p><div class="svc-price">A partir de R$ 150</div></div>
+      <div class="svc-card"><div class="svc-icon">💅</div><h3 class="svc-name">Unhas & Nail Art</h3><p class="svc-desc">Manicure, pedicure, gel, fibra e nail art personalizada para cada ocasião especial.</p><div class="svc-price">A partir de R$ 60</div></div>
+      <div class="svc-card"><div class="svc-icon">✨</div><h3 class="svc-name">Tratamentos Capilares</h3><p class="svc-desc">Hidratação, reconstrução e cronograma capilar para cabelos saudáveis e brilhosos.</p><div class="svc-price">A partir de R$ 120</div></div>
+      <div class="svc-card"><div class="svc-icon">🌸</div><h3 class="svc-name">Estética Facial</h3><p class="svc-desc">Limpeza de pele, design de sobrancelhas, brow lamination e micropigmentação.</p><div class="svc-price">A partir de R$ 90</div></div>
+      <div class="svc-card"><div class="svc-icon">💍</div><h3 class="svc-name">Noivas & Eventos</h3><p class="svc-desc">Penteados e make exclusivos para o dia mais especial da sua vida. Inclui teste prévio.</p><div class="svc-price">A partir de R$ 350</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="galeria">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><span>Galeria</span></div>
+      <h2 class="gal-h">Nossos trabalhos</h2>
+    </div>
+    <div class="gal-grid reveal">
+      <div class="gal-item gal-main">
+        <img src="/salao/tratamento.png" alt="Tratamento premium" />
+        <div class="gal-over"><span class="gal-tag">Tratamento Premium</span></div>
+      </div>
+      <div class="gal-item">
+        <img src="/salao/cabelo-loiro.png" alt="Coloração loiro" />
+        <div class="gal-over"><span class="gal-tag">Balayage</span></div>
+      </div>
+      <div class="gal-item">
+        <img src="/salao/bob-unhas.png" alt="Corte bob e unhas" />
+        <div class="gal-over"><span class="gal-tag">Corte & Nail Art</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><span>Depoimentos</span></div>
+      <h2 class="testi-h">O que nossas clientes dizem</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card"><div class="testi-q">"</div><div class="stars">★★★★★</div><p class="testi-text">Fui pela primeira vez e me apaixonei. A equipe entendeu exatamente o que eu queria. Saí com um loiro perfeito e o cabelo super saudável.</p><div class="testi-rule"></div><div class="testi-author">Mariana S. — Cliente desde 2020</div></div>
+      <div class="testi-card"><div class="testi-q">"</div><div class="stars">★★★★★</div><p class="testi-text">O melhor salão de São Paulo, sem exagero. Ambiente lindo, atendimento impecável e resultado incrível. Não troco por nada!</p><div class="testi-rule"></div><div class="testi-author">Juliana M. — Cliente desde 2019</div></div>
+      <div class="testi-card"><div class="testi-q">"</div><div class="stars">★★★★★</div><p class="testi-text">Fiz o nail art para o meu casamento e ficou um sonho. Todas as minhas convidadas perguntaram onde eu tinha feito. Recomendo!</p><div class="testi-rule"></div><div class="testi-author">Carolina R. — Noiva 2024</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="agendamento">
+  <div class="container">
+    <div class="book-grid">
+      <div class="reveal">
+        <div class="label"><span>Agendamento</span></div>
+        <h2 class="book-h">Agende seu <em>horário</em> agora mesmo.</h2>
+        <p class="book-sub">Preencha o formulário ou entre em contato pelo WhatsApp. Respondemos em até 2 horas.</p>
+        <ul class="info-list">
+          <li class="info-item"><span class="info-icon">📍</span><div><p class="info-lbl">Endereço</p><p class="info-val">Rua das Flores, 142 — Jardins, São Paulo</p></div></li>
+          <li class="info-item"><span class="info-icon">🕐</span><div><p class="info-lbl">Horários</p><p class="info-val">Seg–Sex: 9h às 19h · Sáb: 9h às 17h</p></div></li>
+          <li class="info-item"><span class="info-icon">📱</span><div><p class="info-lbl">WhatsApp</p><p class="info-val">(11) 99999-9999</p></div></li>
+          <li class="info-item"><span class="info-icon">⭐</span><div><p class="info-lbl">Avaliação</p><p class="info-val">4.9 estrelas · 520 avaliações no Google</p></div></li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <form class="form" onsubmit="sendWpp(event)">
+          <div class="form-row">
+            <div><label>Nome</label><input type="text" id="f-nome" placeholder="Seu nome" required /></div>
+            <div><label>WhatsApp</label><input type="tel" id="f-tel" placeholder="(11) 99999-9999" required /></div>
+          </div>
+          <div><label>Serviço desejado</label>
+            <select id="f-svc" required>
+              <option value="">Selecione...</option>
+              <option>Corte & Styling</option>
+              <option>Coloração / Mechas</option>
+              <option>Unhas & Nail Art</option>
+              <option>Tratamento Capilar</option>
+              <option>Estética Facial</option>
+              <option>Noivas & Eventos</option>
+            </select>
+          </div>
+          <div><label>Mensagem (opcional)</label><textarea id="f-msg" placeholder="Preferência de dia/horário ou dúvida?"></textarea></div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Enviar pelo WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="footer-logo">Luxe <em>Atelier</em></a>
+        <p class="footer-tag">Salão & Estética premium no coração de São Paulo. Beleza com propósito.</p>
+      </div>
+      <div>
+        <p class="footer-h">Navegação</p>
+        <ul class="footer-links">
+          <li><a href="#sobre">O Salão</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#agendamento">Agendamento</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-h">Contato</p>
+        <ul class="footer-links">
+          <li><a href="#">(11) 99999-9999</a></li>
+          <li><a href="#">Jardins, São Paulo</a></li>
+          <li><a href="#">Seg–Sáb: 9h–19h</a></li>
+          <li><a href="#">@luxeatelier</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Luxe Atelier. Todos os direitos reservados.</p>
+      <span class="footer-badge">Site criado por <a href="https://automatizai.online">Automatizai</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5511999999999" target="_blank" class="wpp" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.77L0 32l8.448-2.013A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.779-1.853l-.486-.289-5.016 1.196 1.22-4.882-.316-.502A13.257 13.257 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667c7.364 0 13.333 5.969 13.333 13.333S23.364 29.333 16 29.333zm7.307-9.973c-.4-.2-2.364-1.167-2.731-1.3-.367-.133-.633-.2-.9.2s-1.033 1.3-1.267 1.567c-.233.267-.467.3-.867.1-.4-.2-1.688-.622-3.215-1.984-1.188-1.059-1.99-2.368-2.223-2.768-.233-.4-.025-.616.175-.815.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.782-.654-.675-.9-.687l-.767-.013c-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.822 4.308 6.833 6.04.955.412 1.7.658 2.281.843.958.305 1.831.262 2.52.159.769-.115 2.364-.967 2.698-1.9.333-.933.333-1.733.233-1.9-.1-.167-.367-.267-.767-.467z"/></svg>
+</a>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*60); obs.unobserve(e.target); }
+    });
+  },{threshold:.08,rootMargin:'-20px'});
+  els.forEach(el=>obs.observe(el));
+
+  function sendWpp(e){
+    e.preventDefault();
+    const nome=document.getElementById('f-nome').value;
+    const tel=document.getElementById('f-tel').value;
+    const svc=document.getElementById('f-svc').value;
+    const msg=document.getElementById('f-msg').value;
+    const t=`Olá! Gostaria de agendar um horário no Luxe Atelier.\n\n*Nome:* ${nome}\n*Telefone:* ${tel}\n*Serviço:* ${svc}${msg?'\n*Mensagem:* '+msg:''}`;
+    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(t)}`, '_blank');
+  }
+</script>
+</body>
+</html>

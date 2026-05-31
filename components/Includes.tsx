@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 
@@ -15,23 +16,27 @@ const items = [
 ];
 
 export default function Includes() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
   return (
-    <section style={{ padding: "clamp(5rem,10vw,9rem) 0", borderBottom: "1px solid var(--border)", background: "var(--muted)" }}>
+    <section style={{ padding: "clamp(5rem,10vw,10rem) 0", borderBottom: "1px solid var(--border)" }}>
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
-        <div className="grid gap-16 lg:grid-cols-[2fr_3fr] lg:gap-24 items-start">
+        <div className="grid gap-12 lg:grid-cols-[2fr_3fr] lg:gap-20 items-start">
           <Reveal>
             <SectionLabel>O que vem incluso</SectionLabel>
-            <h2 style={{ fontFamily: '"Inter Tight", system-ui', fontWeight: 900, fontSize: "clamp(1.8rem,3.5vw,3rem)", lineHeight: 1.05, letterSpacing: "-0.04em" }}>
+            <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.04em" }}>
               Tudo que você precisa.
             </h2>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 border" style={{ borderColor: "var(--border)" }}>
+          <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 border" style={{ borderColor: "var(--border)" }}>
             {items.map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-4 transition-colors duration-150 group"
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: i * 0.05, ease: "easeOut" }}
+                className="flex items-start gap-4 transition-colors duration-150"
                 style={{ padding: "1.25rem 1.5rem", borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,61,0,0.04)")}
+                onMouseEnter={e => (e.currentTarget.style.background = "var(--muted)")}
                 onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                 <div className="shrink-0 flex items-center justify-center mt-0.5"
                   style={{ width: 18, height: 18, border: "1px solid var(--accent)" }}>

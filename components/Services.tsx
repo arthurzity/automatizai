@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 
@@ -17,44 +18,36 @@ const services = [
 function Card({ s, i }: { s: typeof services[0]; i: number }) {
   const [hov, setHov] = useState(false);
   return (
-    <Reveal delay={i * 55}>
-      <div className="relative h-full transition-all duration-200"
-        style={{ padding: "clamp(1.5rem,3vw,2.5rem)", background: hov ? "var(--muted)" : "var(--card)", cursor: "default" }}
-        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
-        {/* Top accent line */}
-        <span className="absolute top-0 left-0 right-0 h-0.5 transition-all duration-300"
-          style={{ background: "var(--accent)", opacity: hov ? 1 : 0 }} />
-        <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.25rem" }}>
-          {s.num}
-        </p>
-        <h3 style={{ fontFamily: "var(--serif)", fontSize: "clamp(1rem,1.4vw,1.2rem)", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "0.75rem" }}>
-          {s.name}
-        </h3>
-        <p style={{ fontSize: "0.88rem", color: "var(--muted-fg)", lineHeight: 1.7 }}>{s.desc}</p>
-      </div>
-    </Reveal>
+    <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      className="relative h-full transition-colors duration-200"
+      style={{ padding: "clamp(1.5rem,3vw,2.5rem)", background: hov ? "var(--muted)" : "transparent" }}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
+      <motion.span className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "var(--accent)", scaleX: hov ? 1 : 0, transformOrigin: "left" }}
+        animate={{ scaleX: hov ? 1 : 0 }} transition={{ duration: 0.3 }} />
+      <p style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.25rem" }}>{s.num}</p>
+      <h3 style={{ fontFamily: '"Inter Tight", system-ui', fontWeight: 700, fontSize: "clamp(1rem,1.4vw,1.15rem)", letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>{s.name}</h3>
+      <p style={{ fontSize: "0.88rem", color: "var(--muted-fg)", lineHeight: 1.7 }}>{s.desc}</p>
+    </motion.div>
   );
 }
 
 export default function Services() {
   return (
     <section id="servicos" style={{ padding: "clamp(5rem,10vw,9rem) 0", borderBottom: "1px solid var(--border)", background: "var(--muted)" }}>
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 md:px-16">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
         <div className="flex flex-wrap justify-between items-end gap-6 mb-12 md:mb-16">
           <div>
             <Reveal><SectionLabel>O que entregamos</SectionLabel></Reveal>
-            <Reveal delay={80}>
-              <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem,5vw,4rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.02em" }}>
-                Serviços
-              </h2>
+            <Reveal delay={0.08}>
+              <h2 style={{ fontFamily: '"Inter Tight", system-ui', fontWeight: 900, fontSize: "clamp(2.5rem,6vw,5rem)", lineHeight: 1, letterSpacing: "-0.05em" }}>Serviços</h2>
             </Reveal>
           </div>
-          <Reveal delay={140}>
-            <Link href="#orcamento" className="inline-flex items-center gap-2 transition-colors duration-200"
-              style={{ fontFamily: "var(--sans)", fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--accent)", textDecoration: "none" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "var(--accent2)")}
-              onMouseLeave={e => (e.currentTarget.style.color = "var(--accent)")}>
+          <Reveal delay={0.15}>
+            <Link href="#orcamento" className="inline-flex items-center gap-2 group relative"
+              style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)", textDecoration: "none", paddingBottom: "3px" }}>
               Ver planos <ArrowRight size={14} strokeWidth={1.5} />
+              <span className="absolute bottom-0 left-0 w-full h-px origin-left scale-x-100 group-hover:scale-x-110 transition-transform duration-150" style={{ background: "var(--accent)" }} />
             </Link>
           </Reveal>
         </div>

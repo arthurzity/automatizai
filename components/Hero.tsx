@@ -2,10 +2,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { HeroGeometric } from "./ui/shape-landing-hero";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -21,87 +23,101 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative border-b overflow-hidden"
-      style={{ borderColor: "var(--border)", minHeight: "100svh", display: "flex", alignItems: "center", paddingTop: "120px", paddingBottom: "80px" }}>
+    <div ref={sectionRef} className="relative border-b" style={{ borderColor: "var(--border)" }}>
+      {/* HeroGeometric background */}
+      <div className="absolute inset-0 z-0">
+        <HeroGeometric badge="automatizai.online" title1="Seu negócio" title2="online agora." />
+      </div>
 
-      {/* VIDEO bg — desktop only, very subtle on light theme */}
+      {/* Scroll-driven video — very subtle */}
       <video ref={videoRef} className="hidden lg:block absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.06, zIndex: 0 }} src="/hero.mp4" muted playsInline preload="auto" />
+        style={{ opacity: 0.06, zIndex: 1 }} src="/hero.mp4" muted playsInline preload="auto" />
 
-      {/* Warm gradient overlay */}
-      <div className="hidden lg:block absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(105deg, rgba(250,250,248,0.97) 45%, rgba(250,250,248,0.8) 75%, rgba(250,250,248,0.5) 100%)" }} />
+      {/* Content on top */}
+      <div className="relative z-10 min-h-screen flex items-center" style={{ paddingTop: "120px", paddingBottom: "80px" }}>
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
+          <div className="grid lg:grid-cols-[3fr_2fr] lg:gap-16 items-center">
 
-      <div className="relative w-full max-w-5xl mx-auto px-6 sm:px-10 md:px-16" style={{ zIndex: 2 }}>
-        <div className="grid lg:grid-cols-[3fr_2fr] lg:gap-16 items-center">
+            {/* LEFT */}
+            <div>
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.8 }}
+                style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "2rem" }}>
+                — Sites profissionais para qualquer negócio
+              </motion.p>
 
-          {/* LEFT */}
-          <div>
-            <p className="fade-up" style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.75rem", animationDelay: "0.05s" }}>
-              — Sites profissionais para qualquer negócio
-            </p>
+              <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontFamily: '"Inter Tight", system-ui', fontWeight: 900, fontSize: "clamp(3.2rem,7vw,7.5rem)", lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: "1.5rem" }}>
+                Seu negócio<br />
+                na internet<br />
+                do jeito{" "}
+                <em style={{ fontStyle: "italic", fontFamily: '"Playfair Display", Georgia, serif', fontWeight: 400, color: "var(--accent)" }}>
+                  certo.
+                </em>
+              </motion.h1>
 
-            <h1 className="fade-up" style={{ fontFamily: "var(--serif)", fontSize: "clamp(3rem,7.5vw,6.5rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.02em", marginBottom: "1rem", animationDelay: "0.15s" }}>
-              Seu negócio<br />
-              na internet<br />
-              do jeito{" "}
-              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>certo.</em>
-            </h1>
+              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                style={{ width: "60px", height: "2px", background: "var(--accent)", marginBottom: "1.75rem", transformOrigin: "left" }} />
 
-            {/* Rule under headline */}
-            <div className="fade-up" style={{ width: "60px", height: "1px", background: "var(--accent)", margin: "1.75rem 0", animationDelay: "0.2s" }} />
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 1.0 }}
+                style={{ color: "var(--muted-fg)", fontSize: "clamp(1rem,1.3vw,1.05rem)", maxWidth: "42ch", lineHeight: 1.8, marginBottom: "2.5rem" }}>
+                A gente cria o site que seu negócio precisa — bonito, rápido, no celular e no Google. Entrega em até 72h, suporte incluso.
+              </motion.p>
 
-            <p className="fade-up" style={{ color: "var(--muted-fg)", fontSize: "clamp(1rem,1.4vw,1.1rem)", maxWidth: "42ch", lineHeight: 1.8, marginBottom: "2.5rem", animationDelay: "0.25s" }}>
-              A gente cria o site que seu negócio precisa — bonito, rápido, no celular e no Google. Entrega em até 72h, suporte incluso.
-            </p>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 1.1 }}
+                className="flex flex-wrap gap-4 items-center mb-14">
+                <Link href="#orcamento" className="group relative inline-flex items-center gap-2"
+                  style={{ fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)", textDecoration: "none", paddingBottom: "4px" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
+                  Solicitar orçamento <ArrowRight size={15} strokeWidth={1.5} />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 origin-left scale-x-100 group-hover:scale-x-110 transition-transform duration-150" style={{ background: "var(--accent)" }} />
+                </Link>
+                <Link href="#como-funciona" className="inline-flex items-center transition-all duration-150"
+                  style={{ fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", border: "1px solid var(--border)", padding: "0.75rem 1.5rem", textDecoration: "none" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "var(--fg)"; e.currentTarget.style.color = "var(--bg)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--fg)"; }}>
+                  Como funciona
+                </Link>
+              </motion.div>
 
-            <div className="fade-up flex flex-wrap gap-4 items-center mb-14" style={{ animationDelay: "0.35s" }}>
-              <Link href="#orcamento" className="inline-flex items-center gap-2 transition-all duration-200"
-                style={{ fontFamily: "var(--sans)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "var(--accent)", padding: "0.85rem 2rem", borderRadius: "4px", textDecoration: "none", boxShadow: "0 2px 8px rgba(184,134,11,0.25)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "var(--accent2)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "var(--accent)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                Solicitar orçamento <ArrowRight size={15} strokeWidth={1.5} />
-              </Link>
-              <Link href="#como-funciona" className="inline-flex items-center transition-all duration-200"
-                style={{ fontFamily: "var(--sans)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--fg)", border: "1px solid var(--border)", padding: "0.85rem 1.75rem", borderRadius: "4px", textDecoration: "none" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.background = "rgba(184,134,11,0.04)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--fg)"; e.currentTarget.style.background = "transparent"; }}>
-                Como funciona
-              </Link>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
+                className="hidden lg:flex items-center gap-3" style={{ color: "var(--muted-fg)" }}>
+                <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>Role para explorar</span>
+                <span className="inline-block w-8 h-px" style={{ background: "var(--border)" }} />
+                <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+                  animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
+                  <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
+                </motion.svg>
+              </motion.div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-3 fade-up" style={{ animationDelay: "0.5s", color: "var(--muted-fg)" }}>
-              <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase" }}>Role para explorar</span>
-              <span className="inline-block w-8 h-px" style={{ background: "var(--border)" }} />
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
-              </svg>
+            {/* RIGHT — animated stats cards */}
+            <div className="hidden lg:flex flex-col gap-3">
+              {[
+                { num: "72h", label: "Prazo de entrega", desc: "Do briefing ao site no ar", delay: 1.2 },
+                { num: "SEO", label: "Incluso em todos os planos", desc: "Configurado pra aparecer no Google", delay: 1.3 },
+                { num: "100%", label: "Responsivo mobile", desc: "Perfeito em qualquer tela", delay: 1.4 },
+              ].map((s) => (
+                <motion.div key={s.num}
+                  initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: s.delay, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-5 transition-all duration-200 group"
+                  style={{ border: "1px solid var(--border)", padding: "1.25rem 1.75rem", background: "rgba(15,15,15,0.8)", backdropFilter: "blur(12px)" }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}>
+                  <span style={{ fontFamily: '"Inter Tight", system-ui', fontSize: "clamp(1.8rem,2.8vw,2.5rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1, color: "var(--accent)", flexShrink: 0, minWidth: "80px", textAlign: "right" }}>
+                    {s.num}
+                  </span>
+                  <div style={{ borderLeft: "1px solid var(--border)", paddingLeft: "1.25rem" }}>
+                    <p style={{ fontWeight: 600, fontSize: "0.88rem", marginBottom: "0.2rem" }}>{s.label}</p>
+                    <p style={{ fontSize: "0.75rem", color: "var(--muted-fg)" }}>{s.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </div>
 
-          {/* RIGHT — stats cards desktop */}
-          <div className="hidden lg:flex flex-col gap-3 fade-up" style={{ animationDelay: "0.4s" }}>
-            {[
-              { num: "72h", label: "Prazo de entrega", desc: "Do briefing ao site no ar" },
-              { num: "SEO", label: "Incluso em todos os planos", desc: "Configurado pra aparecer no Google" },
-              { num: "100%", label: "Responsivo mobile", desc: "Perfeito em qualquer tela" },
-            ].map((s) => (
-              <div key={s.num} className="flex items-center gap-5 transition-all duration-200"
-                style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "6px", padding: "1.25rem 1.5rem", boxShadow: "0 1px 4px rgba(26,26,26,0.05)" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(184,134,11,0.12)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.boxShadow = "0 1px 4px rgba(26,26,26,0.05)"; }}>
-                <span style={{ fontFamily: "var(--serif)", fontSize: "clamp(1.8rem,3vw,2.5rem)", fontWeight: 400, lineHeight: 1, color: "var(--accent)", flexShrink: 0, minWidth: "80px", textAlign: "right" }}>
-                  {s.num}
-                </span>
-                <div style={{ borderLeft: "1px solid var(--border)", paddingLeft: "1.25rem" }}>
-                  <p style={{ fontWeight: 600, fontSize: "0.9rem", lineHeight: 1.3, marginBottom: "0.25rem" }}>{s.label}</p>
-                  <p style={{ fontSize: "0.78rem", color: "var(--muted-fg)" }}>{s.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
-
         </div>
       </div>
-    </section>
+    </div>
   );
 }

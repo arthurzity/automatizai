@@ -1,19 +1,21 @@
 "use client";
+import { motion } from "framer-motion";
 
 const WPP = "5511912435135";
 
 export default function WhatsAppFloat() {
   return (
-    <a
+    <motion.a
       href={`https://wa.me/${WPP}?text=${encodeURIComponent("Olá! Vim pelo site e quero saber mais sobre criação de sites.")}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Falar no WhatsApp"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center transition-transform duration-150 hover:scale-110"
+      target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+      initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 2, type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}
+      className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center"
       style={{ background: "#25D366", boxShadow: "0 4px 24px rgba(37,211,102,0.3)" }}>
       <svg viewBox="0 0 32 32" width="28" height="28" fill="white" xmlns="http://www.w3.org/2000/svg">
         <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.77L0 32l8.448-2.013A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.779-1.853l-.486-.289-5.016 1.196 1.22-4.882-.316-.502A13.257 13.257 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667c7.364 0 13.333 5.969 13.333 13.333S23.364 29.333 16 29.333zm7.307-9.973c-.4-.2-2.364-1.167-2.731-1.3-.367-.133-.633-.2-.9.2s-1.033 1.3-1.267 1.567c-.233.267-.467.3-.867.1-.4-.2-1.688-.622-3.215-1.984-1.188-1.059-1.99-2.368-2.223-2.768-.233-.4-.025-.616.175-.815.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.782-.654-.675-.9-.687l-.767-.013c-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.822 4.308 6.833 6.04.955.412 1.7.658 2.281.843.958.305 1.831.262 2.52.159.769-.115 2.364-.967 2.698-1.9.333-.933.333-1.733.233-1.9-.1-.167-.367-.267-.767-.467z"/>
       </svg>
-    </a>
+    </motion.a>
   );
 }

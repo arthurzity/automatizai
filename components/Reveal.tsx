@@ -1,25 +1,18 @@
 "use client";
-import { useReveal } from "./useReveal";
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-interface RevealProps {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}
+interface RevealProps { children: ReactNode; delay?: number; className?: string; }
 
 export default function Reveal({ children, delay = 0, className = "" }: RevealProps) {
-  const { ref, visible } = useReveal(delay);
   return (
-    <div
-      ref={ref}
+    <motion.div
       className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(20px)",
-        transition: "opacity 0.5s cubic-bezier(0.25,0,0,1), transform 0.5s cubic-bezier(0.25,0,0,1)",
-      }}>
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}>
       {children}
-    </div>
+    </motion.div>
   );
 }

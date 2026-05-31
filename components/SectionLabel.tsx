@@ -1,16 +1,11 @@
 export default function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      className="flex items-center gap-3 uppercase tracking-[0.2em] mb-5"
-      style={{
-        color: "var(--accent)",
-        fontSize: "0.68rem",
-        fontFamily: '"JetBrains Mono", monospace',
-        fontWeight: 500,
-      }}
-    >
-      <span className="inline-block w-7 h-px shrink-0" style={{ background: "var(--accent)" }} />
-      {children}
-    </p>
+    <div className="flex items-center gap-4 mb-5">
+      <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
+      <span style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)" }}>
+        {children}
+      </span>
+      <span className="flex-1 h-px" style={{ background: "var(--border)" }} />
+    </div>
   );
 }

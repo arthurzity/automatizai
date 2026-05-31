@@ -18,35 +18,19 @@ function Card({ s, i }: { s: typeof services[0]; i: number }) {
   const [hov, setHov] = useState(false);
   return (
     <Reveal delay={i * 55}>
-      <div
-        className="relative h-full transition-colors duration-200"
-        style={{
-          padding: "clamp(1.5rem,3vw,2.5rem)",
-          background: hov ? "var(--muted)" : "transparent",
-          cursor: "default",
-        }}
-        onMouseEnter={() => setHov(true)}
-        onMouseLeave={() => setHov(false)}
-      >
-        <span
-          className="absolute top-0 left-0 h-0.5 transition-all duration-300"
-          style={{ background: "var(--accent)", width: hov ? "100%" : "0%" }}
-        />
-        <p
-          className="mb-5 tracking-[0.14em] uppercase"
-          style={{ color: "var(--accent)", fontSize: "0.65rem", fontFamily: '"JetBrains Mono", monospace' }}
-        >
+      <div className="relative h-full transition-all duration-200"
+        style={{ padding: "clamp(1.5rem,3vw,2.5rem)", background: hov ? "var(--muted)" : "var(--card)", cursor: "default" }}
+        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
+        {/* Top accent line */}
+        <span className="absolute top-0 left-0 right-0 h-0.5 transition-all duration-300"
+          style={{ background: "var(--accent)", opacity: hov ? 1 : 0 }} />
+        <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.25rem" }}>
           {s.num}
         </p>
-        <h3
-          className="font-bold tracking-[-0.02em] mb-3"
-          style={{ fontSize: "clamp(1rem,1.4vw,1.15rem)" }}
-        >
+        <h3 style={{ fontFamily: "var(--serif)", fontSize: "clamp(1rem,1.4vw,1.2rem)", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "0.75rem" }}>
           {s.name}
         </h3>
-        <p className="text-sm leading-relaxed" style={{ color: "var(--muted-fg)" }}>
-          {s.desc}
-        </p>
+        <p style={{ fontSize: "0.88rem", color: "var(--muted-fg)", lineHeight: 1.7 }}>{s.desc}</p>
       </div>
     </Reveal>
   );
@@ -54,48 +38,29 @@ function Card({ s, i }: { s: typeof services[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section
-      id="servicos"
-      style={{
-        borderBottom: "1px solid var(--border)",
-        padding: "clamp(5rem, 10vw, 10rem) 0",
-      }}
-    >
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
-        {/* Header */}
+    <section id="servicos" style={{ padding: "clamp(5rem,10vw,9rem) 0", borderBottom: "1px solid var(--border)", background: "var(--muted)" }}>
+      <div className="max-w-5xl mx-auto px-6 sm:px-10 md:px-16">
         <div className="flex flex-wrap justify-between items-end gap-6 mb-12 md:mb-16">
           <div>
             <Reveal><SectionLabel>O que entregamos</SectionLabel></Reveal>
             <Reveal delay={80}>
-              <h2 className="font-black leading-none tracking-[-0.05em]"
-                style={{ fontSize: "clamp(2.5rem,6vw,5rem)" }}>
+              <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem,5vw,4rem)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.02em" }}>
                 Serviços
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={150}>
-            <Link
-              href="#orcamento"
-              className="group relative inline-flex items-center gap-2 font-semibold tracking-[0.1em] uppercase"
-              style={{ color: "var(--accent)", fontSize: "0.75rem", paddingBottom: "3px" }}
-            >
+          <Reveal delay={140}>
+            <Link href="#orcamento" className="inline-flex items-center gap-2 transition-colors duration-200"
+              style={{ fontFamily: "var(--sans)", fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--accent)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--accent2)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "var(--accent)")}>
               Ver planos <ArrowRight size={14} strokeWidth={1.5} />
-              <span className="absolute bottom-0 left-0 h-px w-full origin-left transition-transform duration-150 scale-x-100 group-hover:scale-x-110"
-                style={{ background: "var(--accent)" }} />
             </Link>
           </Reveal>
         </div>
-
-        {/* Grid */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-          style={{ border: "1px solid var(--border)" }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border" style={{ borderColor: "var(--border)" }}>
           {services.map((s, i) => (
-            <div
-              key={s.num}
-              style={{ borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}
-            >
+            <div key={s.num} style={{ borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
               <Card s={s} i={i} />
             </div>
           ))}
